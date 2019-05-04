@@ -51,46 +51,18 @@
 					</form>
 				</div>
 			</div>
-		</nav>
-
-	<div class="container">
-		<?php  
-	require_once('./dbconnector.php');
-	if(isset($_GET['productname']))
-	{
-		$productname = $_GET['productname'];
-		$con = new DBConnector();
-		$sql = "Select * from product where proname like '%".$productname."%'";
-		$rows = $con -> runQuery($sql);
-		foreach($rows as $r)
-	{?>		
-			<div class="item  col-xs-3 col-lg-3"> 
-				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
-    				<div class="caption"> 
-    						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
-     						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
-     					<div class="row"> 
-      						<div class="col-xs-12 col-md-6"> 
-      							 <p class="lead"><?=$r['price']?></p> 
-     						</div> 
-     					</div> 
-   					</div> 
-  				</div> 
-  			</div>
-	<?php
-	}
-}
-?>	
+		</nav> 
+<div class="container">
 				
-
 <?php 
 	require_once ('./dbconnector.php');
+	$category = $_GET['category'];
 	$con=new DBConnector();
-	$sql=("select * from product");
+	$sql="SELECT * FROM product WHERE cateid =".$category;
 	$rows = $con->runQuery($sql);
 	foreach($rows as $r)
 	{?>		
-			<div class="item  col-xs-3 col-lg-3"> 
+			<div class="item  col-xs-12 col-lg-8"> 
 				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
     				<div class="caption"> 
     						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
@@ -100,16 +72,13 @@
       							 <p class="lead"><?=$r['price']?>$</p> 
      						</div> 
     		 			<div class="col-xs-12 col-md-6"> 
-    		 				<a class="btn btn-success"  href="detail.php?proid=<?=$r['proid']?>">Go</a> 
+    		 				<a class="btn btn-success">Go</a> 
       					</div> 
      					</div> 
    					</div> 
   				</div> 
   			</div>
-	<?php
-	}
- ?>
-
-	</div>	
+  		<?php } ?>
+  		</div>
 </body>
 </html>
