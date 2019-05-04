@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<title>GearCl</title>
+	<title>ATNshop</title>
 	<style>
 		
 		.thumbnail img{
@@ -32,11 +32,11 @@
 						<li><a href="ass2webdesign.php">Home</a></li>
 						<li><a href="manage.php">Manage</a></li>
 <?php 
-	require_once ('./dbconnector.php');
+	include ('./dbconnector.php');
 	$con=new DBConnector();
 	$sql=("select * from category");
 	$rows = $con->runQuery($sql);
-	foreach($rows as $r)
+	while($rows as $r)
 	{?>
 						<li><a href="category.php?category=<?=$r['cateid']?>"><?=$r['catename']?></a></li>	
 	<?php
@@ -55,14 +55,14 @@
 
 	<div class="container">
 		<?php  
-	require_once('./dbconnector.php');
+	include('./dbconnector.php');
 	if(isset($_GET['productname']))
 	{
 		$productname = $_GET['productname'];
 		$con = new DBConnector();
 		$sql = "Select * from product where proname like '%".$productname."%'";
 		$rows = $con -> runQuery($sql);
-		foreach($rows as $r)
+		while($rows as $r)
 	{?>		
 			<div class="item  col-xs-3 col-lg-3"> 
 				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
@@ -84,11 +84,11 @@
 				
 
 <?php 
-	require_once ('./dbconnector.php');
+	include ('./dbconnector.php');
 	$con=new DBConnector();
 	$sql=("select * from product");
 	$rows = $con->runQuery($sql);
-	foreach($rows as $r)
+	while($rows as $r)
 	{?>		
 			<div class="item  col-xs-3 col-lg-3"> 
 				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
