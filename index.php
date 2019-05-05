@@ -32,7 +32,7 @@
 						<li><a href="ass2webdesign.php">Home</a></li>
 						<li><a href="manage.php">Manage</a></li>
 <?php 
-	include ('./dbconnector.php');
+	include 'dbconnector.php';
 	$con=new DBConnector();
 	$sql=("select * from category");
 	$rows = $con->runQuery($sql);
@@ -55,23 +55,22 @@
 
 	<div class="container">
 		<?php  
-	include('./dbconnector.php');
+	include'dbconnector.php';
 	if(isset($_GET['productname']))
 	{
 		$productname = $_GET['productname'];
-		$con = new DBConnector();
-		$sql = "Select * from product where proname like '%".$productname."%'";
-		$rows = $con -> runQuery($sql);
-		while($rows as $r)
+		$sqlsearch = "Select * from product where proname like '%".$productname."%'";
+		$resultsearch = pg_query($connection, $sqlsearch);
+		while($rows = pg_fetch_assoc($resultsearch))
 	{?>		
 			<div class="item  col-xs-3 col-lg-3"> 
-				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
+				<div class="thumbnail"> <img class="group list-group-image" src="<?php echo $rows['proimage']?>" alt="<?php echo $rows['proname']?>" width="300"> 
     				<div class="caption"> 
-    						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
-     						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
+    						<h4 class="group inner list-group-item-heading"> <?php echo $rows['proname']?></h4> 
+     						<p class="group inner list-group-item-text"><?php echo $rows['prodes']?></p> 
      					<div class="row"> 
       						<div class="col-xs-12 col-md-6"> 
-      							 <p class="lead"><?=$r['price']?></p> 
+      							 <p class="lead"><?php echo $rows['price']?></p> 
      						</div> 
      					</div> 
    					</div> 
@@ -84,16 +83,15 @@
 				
 
 <?php 
-	include ('./dbconnector.php');
-	$con=new DBConnector();
-	$sql=("select * from product");
-	$rows = $con->runQuery($sql);
-	while($rows as $r)
+	include 'dbconnector.php';
+	$sql="select * from product";
+	$result = pg_query($connection,$sql);
+	while($rows = pg_fetch_assoc($result))
 	{?>		
 			<div class="item  col-xs-3 col-lg-3"> 
-				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
+				<div class="thumbnail"> <img class="group list-group-image" src="<?php echo $rows['proimage']?>" alt="<?php echo $rows['proname']?>" width="300"> 
     				<div class="caption"> 
-    						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
+    						<h4 class="group inner list-group-item-heading"> <?php echo $rows['proname']?></h4> 
      						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
      					<div class="row"> 
       						<div class="col-xs-12 col-md-6"> 
