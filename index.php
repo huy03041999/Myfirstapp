@@ -94,7 +94,7 @@
      						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
      					<div class="row"> 
       						<div class="col-xs-12 col-md-6"> 
-      							 <p class="lead"><?=$r['price']?>$</p> 
+      							 <p class="lead"><?php echo $rows['price']?>$</p> 
      						</div> 
     		 			<div class="col-xs-12 col-md-6"> 
     		 				<a class="btn btn-success"  href="detail.php?proid=<?=$r['proid']?>">Go</a> 
