@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   <title>GearCl</title>
   <style>
     
@@ -28,16 +29,15 @@
     
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="ass2webdesign.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="#">Manage</a></li>
 <?php 
-  require_once ('./dbconnector.php');
-  $con=new DBConnector();
-  $sql=("select * from category");
-  $rows = $con->runQuery($sql);
-  foreach($rows as $r)
+  include 'dbconnector.php';
+  $sqlcate="select * from category";
+  $resultcate = pg_query($connection, $sqlcate);
+  while($rows = pg_fetch_assoc($resultcate))
   {?>
-            <li><a href="detail.php?category=<?=$r['cateid']?>"><?=$r['catename']?></a></li>  
+            <li><a href="category.php?category=<?php echo $rows['cateid']?>"><?php echo $rows['catename']?></a></li>  
   <?php
   }
  ?>
@@ -54,26 +54,22 @@
 
   <div class="container">
     <?php  
-  require_once('./dbconnector.php');
+  include'dbconnector.php';
   if(isset($_GET['productname']))
   {
     $productname = $_GET['productname'];
-    $con = new DBConnector();
-    $sql = "Select * from product where proname like '%".$productname."%'";
-    $rows = $con -> runQuery($sql);
-    foreach($rows as $r)
+    $sqlsearch = "Select * from product where proname like '%".$productname."%'";
+    $resultsearch = pg_query($connection, $sqlsearch);
+    while($rows = pg_fetch_assoc($resultsearch))
   {?>   
       <div class="item  col-xs-3 col-lg-3"> 
-        <div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
+        <div class="thumbnail"> <img class="group list-group-image" src="<?php echo $rows['proimage']?>" alt="<?php echo $rows['proname']?>" width="300"> 
             <div class="caption"> 
-                <h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
-                <p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
+                <h4 class="group inner list-group-item-heading"> <?php echo $rows['proname']?></h4> 
+                <p class="group inner list-group-item-text"><?php echo $rows['prodes']?></p> 
               <div class="row"> 
                   <div class="col-xs-12 col-md-6"> 
-                     <p class="lead"><?=$r['price']?>$</p> 
-                </div> 
-              <div class="col-xs-12 col-md-6"> 
-                <a class="btn btn-success">Go</a> 
+                     <p class="lead"><?php echo $rows['price']?></p> 
                 </div> 
               </div> 
             </div> 
