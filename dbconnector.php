@@ -1,24 +1,8 @@
 <?php
-class DBconnector{
-	public $host = 'localhost';
-	public $dbname = 'ass2webdesign';
-	public $un = 'root';
-	public $pw = '';
-	public function runQuery($sql)
-	{
-		$conn = new mysqli($this->host,$this->un,$this->pw,$this->dbname);
-		$result = $conn -> query($sql); 
-		$rows = mysqli_fetch_all($result,MYSQLI_ASSOC); 
-		$conn -> close(); 
-		return $rows;
-	}
-	public function execStatement($sql)
-	{
-		$conn = new mysqli($this->host, $this->un, $this->pw, $this->dbname);
-		//hchay cautruy van
-		$result = $conn->query($sql);
-		//dong ket noi
-		$conn->close();
-	}
-}
-?>
+$connection = pg_connect("host=ec2-184-72-237-95.compute-1.amazonaws.com
+ port=5432 dbname=dbtephttujcrda user=jhscfhryimhzkt password=cdbda63178f465787640a210f1e45fc258ad7860cab14a9a8ec73ea9ea6aa1a4
+");  
+ if(!$connection) {
+     die("Database connection failed");
+ }
+ ?>
