@@ -33,12 +33,11 @@
 						<li><a href="manage.php">Manage</a></li>
 <?php 
 	include 'dbconnector.php';
-	$con=new DBConnector();
-	$sql=("select * from category");
-	$rows = $con->runQuery($sql);
-	while($rows as $r)
+	$sqlcate="select * from category";
+	$resultcate = pg_query($connection, $sqlcate);
+	while($rows = pg_fetch_assoc($resultcate))
 	{?>
-						<li><a href="category.php?category=<?=$r['cateid']?>"><?=$r['catename']?></a></li>	
+						<li><a href="category.php?category=<?php echo $rows['cateid']?>"><?php echo $rows['catename']?></a></li>	
 	<?php
 	}
  ?>
