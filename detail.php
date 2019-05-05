@@ -31,13 +31,12 @@
 						<li><a href="ass2webdesign.php">Home</a></li>
 						<li><a href="#">Manage</a></li>
 <?php 
-	require_once ('./dbconnector.php');
-	$con=new DBConnector();
-	$sql=("select * from category");
-	$rows = $con->runQuery($sql);
-	foreach($rows as $r)
+	include 'dbconnector.php';
+	$sqlcate="select * from category";
+	$resultcate = pg_query($connection, $sqlcate);
+	while($rows = pg_fetch_assoc($resultcate))
 	{?>
-						<li><a href="detail.php?category=<?=$r['cateid']?>"><?=$r['catename']?></a></li>	
+						<li><a href="category.php?category=<?php echo $rows['cateid']?>"><?php echo $rows['catename']?></a></li>	
 	<?php
 	}
  ?>
@@ -55,21 +54,20 @@
 	<div class="container">
 				
 <?php 
-	require_once ('./dbconnector.php');
+	require_once 'dbconnector.php';
 	$proid = $_GET['proid'];
-	$con=new DBConnector();
-	$sql=("select * from product where proid=".$proid);
-	$rows = $con->runQuery($sql);
-	foreach($rows as $r)
+	$sqlid="select * from product where proid=".$proid;
+	$resultid = pg_query($connection, $sqlid);
+	while ($rows = pg_fetch_assoc($resultid))
 	{?>		
 			<div class="item  col-xs-12 col-lg-8"> 
-				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
+				<div class="thumbnail"> <img class="group list-group-image" src="<?php echo $rows['proimage']?>" alt="<?php echo $r['proname']?>" width="300"> 
     				<div class="caption"> 
-    						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
-     						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
+    						<h4 class="group inner list-group-item-heading"> <?php echo $rows['proname']?></h4> 
+     						<p class="group inner list-group-item-text"><?php echo $rows['prodes']?></p> 
      					<div class="row"> 
       						<div class="col-xs-12 col-md-6"> 
-      							 <p class="lead"><?=$r['price']?>$</p> 
+      							 <p class="lead"><?php echo $rows['price']?>$</p> 
      						</div> 
     		 			<div class="col-xs-12 col-md-6"> 
     		 				<a class="btn btn-success">Go</a> 
@@ -81,35 +79,7 @@
 	<?php
 	}
  ?>
- <?php  
-	if(isset($_GET['productname']))
-	{
-		$productname = $_GET['productname'];
-		$con = new DBConnector();
-		$sql = "Select * from product where proname like '%".$productname."%'";
-		$rows = $con -> runQuery($sql);
-		foreach($rows as $r)
-	{?>		
-			<div class="item  col-xs-3 col-lg-3"> 
-				<div class="thumbnail"> <img class="group list-group-image" src="<?=$r['proimage']?>" alt="<?=$r['proname']?>" width="300"> 
-    				<div class="caption"> 
-    						<h4 class="group inner list-group-item-heading"> <?=$r['proname']?></h4> 
-     						<p class="group inner list-group-item-text"><?=$r['prodes']?></p> 
-     					<div class="row"> 
-      						<div class="col-xs-12 col-md-6"> 
-      							 <p class="lead"><?=$r['price']?></p> 
-     						</div> 
-    		 			<div class="col-xs-12 col-md-6"> 
-    		 				<a class="btn btn-success">Go</a> 
-      					</div> 
-     					</div> 
-   					</div> 
-  				</div> 
-  			</div>
-	<?php
-	}
-}
-?>	
+
 
 	</div>
 

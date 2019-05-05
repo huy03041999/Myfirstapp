@@ -97,7 +97,7 @@
       							 <p class="lead"><?php echo $rows['price']?>$</p> 
      						</div> 
     		 			<div class="col-xs-12 col-md-6"> 
-    		 				<a class="btn btn-success"  href="detail.php?proid=<?=$r['proid']?>">Go</a> 
+    		 				<a class="btn btn-success"  href="detail.php?proid=<?php echo $rows['proid']?>">Go</a> 
       					</div> 
      					</div> 
    					</div> 
