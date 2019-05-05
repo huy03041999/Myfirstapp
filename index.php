@@ -29,7 +29,7 @@
 
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="ass2webdesign.php">Home</a></li>
+						<li><a href="index.php">Home</a></li>
 						<li><a href="manage.php">Manage</a></li>
 <?php 
 	include 'dbconnector.php';
