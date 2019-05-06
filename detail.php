@@ -54,7 +54,7 @@
 	<div class="container">
 				
 <?php 
-	require_once 'dbconnector.php';
+	include 'dbconnector.php';
 	$proid = $_GET['proid'];
 	$sqlid="select * from product where proid=".$proid;
 	$resultid = pg_query($connection, $sqlid);
